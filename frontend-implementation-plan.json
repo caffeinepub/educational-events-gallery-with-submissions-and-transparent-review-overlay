@@ -1,0 +1,111 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Educational Events Gallery with Submissions and Transparent Review Overlay (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Build an events gallery view that loads events from the backend and renders photo cards with a transparent-styled review overlay.",
+      "acceptanceCriteria": [
+        "The page loads events from the backend and renders them without requiring a page refresh.",
+        "Each event card displays the photo prominently and the review text is visually transparent (photo visible through the glyphs) while remaining readable (e.g., via subtle stroke/shadow/blurred backdrop or similar).",
+        "If no events exist, the UI shows an English empty-state message (e.g., “No events yet. Be the first to submit one.”)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/EventsGalleryPage.tsx",
+          "operation": "create",
+          "description": "Create the gallery page that uses React Query to load events via the backend actor (listEvents) and renders a responsive grid/list. Show an English empty-state when the list is empty."
+        },
+        {
+          "path": "frontend/src/components/events/EventCard.tsx",
+          "operation": "create",
+          "description": "Create an event photo card component that renders the image and overlays the review text with transparent styling (photo visible behind text) while preserving readability (e.g., subtle stroke/shadow/backdrop)."
+        },
+        {
+          "path": "frontend/src/hooks/useEvents.ts",
+          "operation": "create",
+          "description": "Add a React Query hook that reads events from the backend actor using useActor and listEvents, returning loading/error states suitable for the gallery."
+        },
+        {
+          "path": "frontend/src/components/events/EventImage.tsx",
+          "operation": "create",
+          "description": "Create a helper component for rendering event images using the blob-storage ExternalBlob (use getDirectURL for display where possible). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Add top-level app composition that wires navigation between the Gallery view and the Submit Event view (no authentication required). Ensure the Gallery view is accessible and is the default view."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement a Submit Event form with validation and image upload that submits to the backend and refreshes the gallery on success.",
+      "acceptanceCriteria": [
+        "The form validates required fields (at minimum: title, review text, and image) and shows English validation messages.",
+        "The image upload accepts common formats (JPEG/PNG/WebP at minimum) and is converted to the backend’s expected payload (bytes + MIME type).",
+        "After successful submission, the user sees an English success confirmation and the new event is visible in the gallery list without manual reload (e.g., via React Query invalidation/refetch).",
+        "On backend error, the user sees an English error message and the event is not added to the gallery."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SubmitEventPage.tsx",
+          "operation": "create",
+          "description": "Create the Submit Event page containing the form fields (title, description, optional date, optional location, review, image upload), English validation messages, and success/error confirmation UI."
+        },
+        {
+          "path": "frontend/src/components/events/SubmitEventForm.tsx",
+          "operation": "create",
+          "description": "Implement the form UI using existing UI primitives (shadcn-ui components) by composing them (do not modify frontend/src/components/ui/*). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCreateEvent.ts",
+          "operation": "create",
+          "description": "Add a React Query mutation hook that calls the backend actor createEvent, shows submission state, and invalidates/refetches the events query so the new event appears without a manual reload."
+        },
+        {
+          "path": "frontend/src/lib/imageUpload.ts",
+          "operation": "create",
+          "description": "Add utilities to validate file type (JPEG/PNG/WebP), read the selected image as bytes, and construct a blob-storage ExternalBlob from bytes for backend submission. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Submit Event page into navigation alongside the Gallery. Ensure post-submit success routes back (or switches) to the Gallery view and triggers an events refresh."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Apply a cohesive educational/professional theme across gallery and submission views using Tailwind and existing UI primitives, avoiding blue/purple as primary colors.",
+      "acceptanceCriteria": [
+        "Gallery and submission pages share consistent typography, spacing, and component styling.",
+        "Primary palette is not blue/purple unless used only as minor accents; the theme reads as educational/professional.",
+        "All user-facing text is in English."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define global theme tokens (CSS variables used by Tailwind/shadcn styling) and base typography/spacing defaults, selecting a non-blue/purple primary palette (e.g., greens/teals/neutral) suitable for educational/professional content."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme extensions (if needed) to support the chosen palette and consistent typography/spacing across pages while keeping blue/purple as at most minor accents."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout wrapper (header/title/navigation + consistent container spacing) used by both Gallery and Submit views to enforce consistent styling and English UI copy."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap Gallery and Submit pages with the shared SiteLayout to apply the cohesive theme consistently."
+        }
+      ]
+    }
+  ]
+}

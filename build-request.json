@@ -1,0 +1,107 @@
+{
+  "kind": "build_request",
+  "title": "Educational Events Gallery with Submissions and Transparent Review Overlay",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a backend data model and API to store and retrieve educational/useful events that include an image and a review string: each event must have a unique id, title, description, optional date, optional location, image bytes + image MIME type, review text, and createdAt timestamp; provide methods to (1) create/submit an event and (2) list all events for display.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "can you make me a website where you can see the photos of events and can submit your events which can be shown on the website also there should be a review next to that events photo ... we are talking about educational and useful events"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A caller can submit an event with title, description, review text, and an uploaded image (bytes + MIME type) and receives a stable event id.",
+        "A caller can fetch a list of events and each returned event includes id, title, description, date (if provided), location (if provided), review text, createdAt, and sufficient image data to render the image on the frontend (e.g., bytes + MIME type or a ready-to-use data URL).",
+        "Backend persists events across canister upgrades using stable storage patterns appropriate for Motoko single-actor canisters."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a frontend events gallery page that displays submitted educational/useful events as a list/grid of event photo cards; each card must show the event photo and include the event’s review rendered with transparent text styling so the photo is visible behind the text, matching the user’s request.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "see the photos of events",
+          "there should be a review next to that events photo but text should be transparent and the photo can be seen from behind"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The page loads events from the backend and renders them without requiring a page refresh.",
+        "Each event card displays the photo prominently and the review text is visually transparent (photo visible through the glyphs) while remaining readable (e.g., via subtle stroke/shadow/blurred backdrop or similar).",
+        "If no events exist, the UI shows an English empty-state message (e.g., “No events yet. Be the first to submit one.”)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a frontend event submission flow: add an “Submit Event” form that allows a user to enter event title, description, optional date, optional location, review text, and upload an image; on submission, the event is sent to the backend and then appears in the gallery.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "can submit your events which can be shown on the website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The form validates required fields (at minimum: title, review text, and image) and shows English validation messages.",
+        "The image upload accepts common formats (JPEG/PNG/WebP at minimum) and is converted to the backend’s expected payload (bytes + MIME type).",
+        "After successful submission, the user sees an English success confirmation and the new event is visible in the gallery list without manual reload (e.g., via React Query invalidation/refetch).",
+        "On backend error, the user sees an English error message and the event is not added to the gallery."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Define and apply a cohesive visual theme for the site (colors, typography, spacing, and component styling) appropriate for “educational and useful events”; enforce the theme across the gallery and submission views using Tailwind styling and existing UI component primitives, avoiding blue/purple as the primary palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "we are talking about educational and useful events"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Gallery and submission pages share consistent typography, spacing, and component styling.",
+        "Primary palette is not blue/purple unless used only as minor accents; the theme reads as educational/professional.",
+        "All user-facing text is in English."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (no additional backend services).",
+    "Do not edit frontend files under immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose instead).",
+    "Do not use external databases or third-party auth providers; use only the Internet Computer canister storage.",
+    "No real-time features (no WebSockets/push)."
+  ],
+  "nonGoals": [
+    "Event moderation/admin approval workflow.",
+    "User accounts, profiles, or requiring login to submit events.",
+    "Comments, likes, ratings beyond the single review text field requested.",
+    "Integrations with external event APIs, calendars, maps, or geolocation."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

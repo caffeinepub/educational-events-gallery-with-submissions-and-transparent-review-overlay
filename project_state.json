@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Website for browsing educational/useful event photos and allowing users to submit events to be displayed, with a transparent-text review overlay on event photos.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-a-frontend-events-gallery-page-that-displays-submitted-educational-useful-events-as-a-list-grid-of-event-photo-cards-each-card-must-show-the-event-photo-and-include-the-event-s-review-rendered-with-transparent-text-styling-so-the-photo-is-visible-behind-the-text-matching-the-user-s-request",
+      "title": "Implement a frontend events gallery page that displays submitted educational/useful events as a list/grid of event photo cards; each card must show the event photo and include the event’s review rendered with transparent text styling so the photo is visible behind the text, matching the user’s request.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-frontend-event-submission-flow-add-an-submit-event-form-that-allows-a-user-to-enter-event-title-description-optional-date-optional-location-review-text-and-upload-an-image-on-submission-the-event-is-sent-to-the-backend-and-then-appears-in-the-gallery",
+      "title": "Implement a frontend event submission flow: add an “Submit Event” form that allows a user to enter event title, description, optional date, optional location, review text, and upload an image; on submission, the event is sent to the backend and then appears in the gallery.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-cohesive-visual-theme-for-the-site-colors-typography-spacing-and-component-styling-appropriate-for-educational-and-useful-events-enforce-the-theme-across-the-gallery-and-submission-views-using-tailwind-styling-and-existing-ui-component-primitives-avoiding-blue-purple-as-the-primary-palette",
+      "title": "Define and apply a cohesive visual theme for the site (colors, typography, spacing, and component styling) appropriate for “educational and useful events”; enforce the theme across the gallery and submission views using Tailwind styling and existing UI component primitives, avoiding blue/purple as the primary palette.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Event listings/gallery page to view events with associated photos (educational/useful events focus)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "User event submission form to submit new events (including photo) for display on the website",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Display a review next to/on each event photo with transparent text overlay so the photo remains visible behind the text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Create a backend data model and API to store and retrieve educational/useful events that include an image and a review string: each event must have a unique id, title, description, optional date, optional location, image bytes + image MIME type, review text, and createdAt timestamp; provide methods to (1) create/submit an event and (2) list all events for display.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Educational Events Gallery with Submissions and Transparent Review Overlay",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

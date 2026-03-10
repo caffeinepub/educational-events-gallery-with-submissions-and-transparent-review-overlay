@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Motoko actor storing events with image blobs, supporting creation and sorted listing by creation time.",
+  "feature_evidence.json": "Feature evidence report mapping feature requirements to related frontend files and components.",
+  "frontend-file-summaries.txt": "Quick reference summaries describing the purpose of each major frontend file.",
+  "frontend/index.css": "Tailwind base styles defining the app’s warm color theme and light/dark CSS variables.",
+  "frontend/index.html": "HTML entry point mounting the React app and loading main.tsx.",
+  "frontend/src/App.tsx": "Root React component switching between gallery and event submission views.",
+  "frontend/src/components/events/EventCard.tsx": "Displays an event card with image, transparent review overlay, and basic event details.",
+  "frontend/src/components/events/EventImage.tsx": "Renders an event’s image blob with loading skeleton and hover effects.",
+  "frontend/src/components/events/SubmitEventForm.tsx": "Form for submitting events with validation, image upload, and submission handling.",
+  "frontend/src/components/layout/SiteLayout.tsx": "Provides global layout with header navigation and footer, wrapping page content.",
+  "frontend/src/hooks/useActor.ts": "Creates and manages authenticated or anonymous backend actor instances.",
+  "frontend/src/hooks/useCreateEvent.ts": "Mutation hook to create events by uploading an image blob and calling createEvent.",
+  "frontend/src/hooks/useEvents.ts": "Query hook fetching events from backend and sorting by newest first.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides a React context and provider for managing Internet Identity authentication state and login/logout flow.",
+  "frontend/src/index.css": "Defines global Tailwind base styles and custom color/theme variables for light and dark modes.",
+  "frontend/src/lib/imageUpload.ts": "Validates image files and reads them as byte arrays with optional progress reporting.",
+  "frontend/src/main.tsx": "Bootstraps the React app, wrapping it with React Query and Internet Identity providers.",
+  "frontend/src/pages/EventsGalleryPage.tsx": "Displays a gallery of events with loading/error states and buttons to submit new events.",
+  "frontend/src/pages/SubmitEventPage.tsx": "Renders the event submission form inside a styled card layout.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme colors, fonts, animations, and enabling plugins.",
+  "project_state.json": "Tracks project state, features, and requirements for the educational events gallery application."
+}

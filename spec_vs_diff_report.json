@@ -1,0 +1,78 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T04:54:09.031Z",
+  "summary": "Core gallery/submission UI and basic backend APIs were added, including transparent review overlays and React Query fetching/mutations. However, several backend requirements are not met: the backend does not generate/return a stable event id, does not store image MIME type (and frontend does not send it), and there is no visible stable-storage/upgrade persistence pattern for events. There are also some added features not requested (e.g., a caffeine.ai tracking footer, and use of a blob-storage module).",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Backend must store image bytes plus image MIME type for each event, and return sufficient image data for rendering (bytes+MIME or data URL).",
+      "reason": "The Event model stores `image : Location.ExternalBlob` but no MIME type field is present, and the frontend upload/mutation passes only `imageBytes` without any MIME type. It is unclear from the diff that listEvents returns MIME type or bytes suitable for direct rendering beyond an ExternalBlob URL helper.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useCreateEvent.ts",
+        "frontend/src/lib/imageUpload.ts",
+        "frontend/src/components/events/EventImage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Backend create/submit method must return a stable event id to the caller.",
+      "reason": "`createEvent` requires the caller to provide `id : Text` and returns `async ()` (no id). The frontend generates an id client-side, but the acceptance criteria requires the caller receives a stable event id from the backend call response.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useCreateEvent.ts"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Backend must persist events across canister upgrades using stable storage patterns appropriate for a single Motoko actor.",
+      "reason": "Events are stored in `let events = Map.empty<Text, Event>();` with no `stable` variables, preupgrade/postupgrade hooks, or other upgrade persistence mechanisms shown in the diff.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Footer attribution link to caffeine.ai with UTM tracking parameters.",
+      "reason": "Not requested in any requirement; adds external link/tracking in the layout.",
+      "evidence": [
+        "frontend/src/components/layout/SiteLayout.tsx"
+      ]
+    },
+    {
+      "description": "Use of a blob-storage module/mixin and ExternalBlob-based storage approach.",
+      "reason": "The BuildRequest only asked for canister storage in a single Motoko actor; it did not request integrating a blob-storage mixin/module or using an ExternalBlob abstraction. This may be fine, but it is additional/unrequested functionality.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/events/EventImage.tsx",
+        "frontend/src/hooks/useCreateEvent.ts"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/events/EventCard.tsx",
+    "frontend/src/components/events/EventImage.tsx",
+    "frontend/src/components/events/SubmitEventForm.tsx",
+    "frontend/src/components/layout/SiteLayout.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useCreateEvent.ts",
+    "frontend/src/hooks/useEvents.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/imageUpload.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/EventsGalleryPage.tsx",
+    "frontend/src/pages/SubmitEventPage.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

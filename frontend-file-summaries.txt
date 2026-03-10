@@ -1,0 +1,14 @@
+{
+  "frontend/src/index.css": "Global styles with warm educational color palette (amber/orange primary) using OKLCH color system for both light and dark modes, avoiding blue/purple as primary colors.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with custom fonts, colors mapped to CSS variables, border radius, shadows, and animations for the educational events application.",
+  "frontend/src/App.tsx": "Main application component managing view state between gallery and submit pages, wrapping content in SiteLayout for consistent navigation and theming.",
+  "frontend/src/components/layout/SiteLayout.tsx": "Shared layout wrapper providing header with navigation, main content area, and footer with attribution link including UTM tracking parameters.",
+  "frontend/src/pages/EventsGalleryPage.tsx": "Gallery page displaying events in a responsive grid with loading states, error handling, and empty state message encouraging first submission.",
+  "frontend/src/pages/SubmitEventPage.tsx": "Submit event page wrapping the submission form in a card layout with title and description for context.",
+  "frontend/src/components/events/EventCard.tsx": "Event card component displaying event image with transparent text overlay for review, plus event details like title, description, date, and location.",
+  "frontend/src/components/events/EventImage.tsx": "Helper component for rendering event images using ExternalBlob's direct URL with loading skeleton and smooth transitions.",
+  "frontend/src/components/events/SubmitEventForm.tsx": "Form component for submitting events with validation, image upload with preview, progress tracking, and success/error states.",
+  "frontend/src/hooks/useEvents.ts": "React Query hook fetching events from backend actor, sorting by creation date descending, with proper loading and error states.",
+  "frontend/src/hooks/useCreateEvent.ts": "React Query mutation hook for creating events, handling ExternalBlob conversion and invalidating events query on success with proper TypeScript types for Uint8Array<ArrayBuffer>.",
+  "frontend/src/lib/imageUpload.ts": "Utility functions for validating image files (JPEG/PNG/WebP, max 10MB) and reading files as byte arrays with progress tracking, properly typed as Uint8Array<ArrayBuffer>."
+}
